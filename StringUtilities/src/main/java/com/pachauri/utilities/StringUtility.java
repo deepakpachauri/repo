@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 
+ * This class provides the String Utility methods.
  * @author Deepak Pachauri
  * @email deepakpachauri@gmail.com
  *
@@ -12,7 +12,7 @@ import java.util.Set;
 public final class StringUtility {
 	
 	/**
-	 * 
+	 * This method finds whether there is any character in string which repeats. It will igore the whitespaces.
 	 * @param str
 	 * @return boolean
 	 */
