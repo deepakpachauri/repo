@@ -28,6 +28,7 @@ import org.interview.twitter.entity.TwitterMessage;
 import org.interview.twitter.entity.TwitterUser;
 import org.interview.twitter.oauth.TwitterAuthenticator;
 import org.interview.twitter.view.PrintView;
+import org.interview.twitter.view.impl.ConsolePrintView;
 import org.json.JSONObject;
 
 import com.google.api.client.http.GenericUrl;
@@ -38,6 +39,10 @@ import com.google.api.client.http.HttpResponse;
 public class TwitterController {
 
 	private TwitterAuthenticator auth;
+
+	private PrintView view;
+	
+	private PrintStream out;
 
 	private HttpRequestFactory requestFactory;
 
@@ -53,11 +58,17 @@ public class TwitterController {
 
 	private long startTime = 0;
 
-	private PrintStream out;
-
 	public TwitterController() {
 		out = System.out;
 		auth = new TwitterAuthenticator(out, CONSUMER_KEY, CONSUMER_SECRET);
+		view = new ConsolePrintView();
+	}
+
+	public TwitterController(PrintStream out, TwitterAuthenticator auth,
+			PrintView view) {
+		this.out = out;
+		this.auth = auth;
+		this.view = view;
 	}
 
 	public void startStreaming() {
@@ -93,7 +104,8 @@ public class TwitterController {
 			});
 			executor.shutdown();
 			startTime = System.currentTimeMillis();
-			// wait for result "Done" for 30 Seconds, after 30 Seconds, it throws exception.
+			// wait for result "Done" for 30 Seconds, after 30 Seconds, it
+			// throws exception.
 			result.get(30, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			// It will Intrupt the running thread, as 30 Seconds has passed.
@@ -106,7 +118,7 @@ public class TwitterController {
 				e.printStackTrace();
 			}
 		}
-		PrintView.print(messageMap, out);
+		view.print(messageMap, out);
 	}
 
 	private boolean parseTwitterResponse() {
@@ -190,7 +202,7 @@ public class TwitterController {
 			messageMap.put(user, list);
 		}
 	}
-	
+
 	public static void main(String args[]) {
 		TwitterController controller = new TwitterController();
 		controller.startStreaming();
