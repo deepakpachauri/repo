@@ -62,9 +62,9 @@ public class TwitterController {
 
 	public void startStreaming() {
 		Future<String> result = null;
-		out.println("Reading Tweets for track = bieber");
 		try {
 			requestFactory = auth.getAuthorizedHttpRequestFactory();
+			out.println("Reading Tweets for track = bieber");
 			ExecutorService executor = Executors.newSingleThreadExecutor();
 			result = executor.submit(new Callable<String>() {
 				public String call() throws Exception {
