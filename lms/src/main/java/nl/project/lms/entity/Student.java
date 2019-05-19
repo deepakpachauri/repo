@@ -1,13 +1,13 @@
 package nl.project.lms.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import com.datastax.driver.core.DataType;
-import com.datastax.driver.core.utils.UUIDs;
 
 @Table
 public class Student implements Serializable {
@@ -18,8 +18,8 @@ public class Student implements Serializable {
 	private static final long serialVersionUID = -8979377753882938593L;
 
 	@PrimaryKey
-	@CassandraType(type = DataType.Name.UUID)
-	private UUIDs id;
+	@CassandraType(type = DataType.Name.TIMEUUID)
+	private UUID id;
 
 	private String firstName;
 
@@ -31,7 +31,7 @@ public class Student implements Serializable {
 		// Default Construtor
 	}
 
-	public Student(UUIDs id, String firstName, String lastName, String emailId) {
+	public Student(UUID id, String firstName, String lastName, String emailId) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -44,11 +44,11 @@ public class Student implements Serializable {
 				this.lastName, this.emailId);
 	}
 
-	public UUIDs getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(UUIDs id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
