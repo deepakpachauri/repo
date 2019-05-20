@@ -11,9 +11,11 @@ CREATE TABLE Student (
 	FirstName Text, 
 	LastName Text, 
 	EmailId Text
+	DateOfBirth Date Not Null
 );
 
 --CREATE INDEXES
 CREATE INDEX studentfistnameindex ON Student (FirstName);
 CREATE INDEX studentlastnameindex ON Student (LastName);
-CREATE INDEX studentlastemailidindex ON Student (emailId);
+CREATE INDEX studentemailidindex ON Student (EmailId);
+CREATE INDEX studentdateofbirthindex ON Student (DateOfBirth);

@@ -32,8 +32,19 @@ public class StudentServiceImpl extends BaseServiceImpl<Student, UUID> implement
 	}
 
 	@Override
+	public List<Student> findByDateOfBirth(String dateOfBirth) {
+		List<Student> list = new ArrayList<>();
+		repository.findByDateOfBirth(dateOfBirth).forEach(list::add);
+		return list;
+	}
+
+	@Override
 	public Student findByEmail(String email) {
 		return repository.findByEmailId(email);
 	}
 
+	@Override
+	public void addStudent(Student student) {
+		repository.insert(student);
+	}
 }

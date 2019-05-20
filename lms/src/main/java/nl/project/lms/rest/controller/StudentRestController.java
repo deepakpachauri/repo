@@ -1,6 +1,5 @@
-package nl.project.lms.controller;
+package nl.project.lms.rest.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,27 +11,20 @@ import nl.project.lms.entity.Student;
 import nl.project.lms.service.StudentService;
 
 @RestController()
-@RequestMapping("/student")
-public class StudentController {
+@RequestMapping("rest/student")
+public class StudentRestController {
 
 	@Autowired
 	private StudentService service;
 
 	@RequestMapping(value = "/findAll")
 	public List<Student> findAll() {
-
-		List<Student> students = new ArrayList<>();
-		service.findAll().forEach(students::add);
-
-		return students;
+		return service.findAll();
 	}
 
 	@RequestMapping(value = "/findByFirstName")
 	public List<Student> findByFirstName(@RequestParam(value = "firstName") String firstName) {
-
-		List<Student> students = service.findByFirstName(firstName);
-		System.out.println(students);
-		return students;
+		return service.findByFirstName(firstName);
 	}
 
 	@RequestMapping(value = "/findByLastName")
@@ -43,6 +35,17 @@ public class StudentController {
 	@RequestMapping(value = "/findByEmail")
 	public Student findByEmailId(@RequestParam(value = "email") String email) {
 		return service.findByEmail(email);
+	}
+
+	@RequestMapping(value = "/addStudent")
+	public String addStudent() {
+		Student student = new Student("Vihaan", "", "vihaan.pachauri");
+		service.addStudent(student);
+		return "Success";
+	}
+
+	public List<Student> findByDateOfBirth(@RequestParam(value = "dateOfBirth") String dateOfBirth) {
+		return service.findByFirstName(dateOfBirth);
 	}
 
 }

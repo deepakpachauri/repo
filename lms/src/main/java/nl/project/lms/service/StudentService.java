@@ -10,7 +10,11 @@ public interface StudentService extends BaseService<Student, UUID> {
 	List<Student> findByFirstName(String firstName);
 
 	List<Student> findByLastName(String lastName);
+	
+	List<Student> findByDateOfBirth(String dateOfBirth);
 
 	Student findByEmail(String email);
+	
+	void addStudent(Student student);
 
 }
